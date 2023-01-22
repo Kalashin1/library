@@ -2,16 +2,22 @@
 require("./controllers/book.php");
 require("./controllers/category.php");
 $books = $Book->get_books();
+if (isset($_GET["filter_book_by"])) {
+  $category = $_GET["filter_book_by"];
+  $books = $Book->get_book_by_category(htmlspecialchars($category));
+}
 ?>
 
 <div class="row">
-  <div class="form-group w-50 row m-4">
-    <label>filter </label>
-    <nav>
+  <div class="dropdown m-4">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+      Filter By category
+    </button>
+    <div class="dropdown-menu">
       <?php foreach ($Category->get_categories() as $category) { ?>
-        <a href="book.php?filter_by=<?php echo $category["title"] ?>"><?php echo $category["title"] ?></a>
+        <a class="dropdown-item" href="book.php?filter_book_by=<?php echo $category["id"] ?>"><?php echo $category["title"] ?></a>
       <?php } ?>
-    </nav>
+    </div>
   </div>
   <div class="col-12 col-md-10 col-lg-10">
     <div class="card" style="overflow-x: scroll;">
@@ -39,7 +45,7 @@ $books = $Book->get_books();
                 <td><?php echo $book["page"] ?></td>
                 <td><?php echo $book["category_title"] ?></td>
                 <td>
-                  <a href="<?php echo "create-book.php?book=$book[id]&category=$book[category_id]&category_title=$book[category_title]&author=$book[author_id]&author_name=$book[author_name]&author_surname=$book[author_surname]&year_of_publication=$book[year_of_publication]&title=$book[title]&page=$book[page]&image=$book[image]" ?>">
+                  <a href="<?php echo "create-book.php?book=$book[id]&category=$book[category_id]&category_title=$book[category_title]&author=$book[author_id]&author_name=$book[author_name]&author_surname=$book[author_surname]&year_of_publication=$book[year_of_publication]&title=$book[title]&page=$book[page]&image=$book[image]" ?>" >
                     <span class="fas fa-edit text-warning"></span>
                   </a>
                   <a class="text-danger book">

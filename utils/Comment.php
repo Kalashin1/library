@@ -44,9 +44,10 @@ class Comment {
     return $result;
   }
 
-  function approve_multiple_comments($ids) {
+  function approve_multiple_comments($book) {
     $time_stamp = date("Y-m-d h:i:s");
-    $sql = "UPDATE comments SET is_approved='1', approved_at='$time_stamp' WHERE id IN '$ids' AND is_deleted='0'";
+    $book = mysqli_real_escape_string($this->connection, $book);
+    $sql = "UPDATE comments SET is_approved='1', approved_at='$time_stamp' WHERE book='$book' AND is_deleted='0'";
     mysqli_query($this->connection, $sql);
     if (mysqli_error($this->connection)) {
       echo "error something happened ".mysqli_error($this->connection);

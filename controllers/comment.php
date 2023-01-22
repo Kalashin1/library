@@ -25,4 +25,10 @@
     $Comment->delete_comment($id, $_SESSION["user"]["id"]);
     echo "<script>(() => {window.location.assign('book-view.php?book=$comment[book_id]')})()</script>";
   }
+
+  if(isset($_GET["approve_all"])){
+    $book = htmlspecialchars($_GET["book"]);
+    $Comment->approve_multiple_comments($book);
+    echo "<script>(() => {window.location.assign('book-view.php?book=$book')})()</script>";
+  }
 ?>

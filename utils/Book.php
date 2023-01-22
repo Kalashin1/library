@@ -55,7 +55,7 @@ class Book {
 
   function get_book_by_category($category){
     $category = mysqli_real_escape_string($this->connection, $category);
-    $sql = "SELECT book_category.id, categories.title AS category_title, books.title AS book_title FROM book_category INNER JOIN categories ON book_category.category=categories.id INNER JOIN books ON books.id=book_category.book WHERE book_category.category='$category' AND categories.is_deleted='0' AND books.is_deleted='0'";
+    $sql = "SELECT books.title, books.id, books.page, books.image, books.year_of_publication, books_author.id AS author_id, authors.name AS author_name, authors.surname AS author_surname, book_category.id AS category_id, categories.title AS category_title FROM books INNER JOIN books_author ON books.id=books_author.book INNER JOIN authors ON authors.id=books_author.author INNER JOIN book_category ON book_category.book=books.id INNER JOIN categories ON book_category.category=categories.id WHERE book_category.category='$category' AND categories.is_deleted='0' AND books.is_deleted='0' AND authors.is_deleted='0'";
     $query = mysqli_query($this->connection, $sql);
     if (mysqli_error($this->connection)) {
       echo "error something happened ".mysqli_error($this->connection);
