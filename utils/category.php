@@ -9,11 +9,10 @@ class Category {
   }
 
   function get_categories(){
-    $sql = "SELECT * from categories WHERE is_deleted='false'";
+    $sql = "SELECT title, created_at, id FROM categories WHERE is_deleted='0' ORDER BY title";
 
     $query = mysqli_query($this->connection, $sql);
     $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
-
     return $result;
   }
 
@@ -56,7 +55,7 @@ class Category {
   function delete_category($id) {
     $id = mysqli_real_escape_string($this->connection, $id);
     $time_stamp = date("Y-m-d h:i:s");
-    $sql = "UPDATE categories, books, comments, notes SET categories.is_deleted='1', categories.deleted_at='$time_stamp', books.is_deleted='1', books.deleted_at='$time_stamp', comments.is_deleted='1', comments.deleted_at='$time_stamp', notes.is_deleted='0', notes.deleted_at='$time_stamp' WHERE id='$id' AND categories.id=book.category AND books.id=comments.book";
+    $sql = "UPDATE categories SET categories.is_deleted='1', categories.deleted_at='$time_stamp' WHERE categories.id='$id';";
     mysqli_query($this->connection, $sql);
     if (mysqli_error($this->connection)) {
       echo "error something happened ".mysqli_error($this->connection);

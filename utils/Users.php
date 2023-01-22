@@ -27,7 +27,7 @@ class User {
     if (mysqli_error($this->connection)) {
       echo "error something happened ".mysqli_error($this->connection);
     }
-    return ["id" => $id, "name" => $name, "surname" => $surname, "username" => $username];
+    return ["id" => $id, "name" => $name, "surname" => $surname, "username" => $username, "type" => "USER"];
   }
 
   function get_user_by_id($id) {
@@ -42,7 +42,7 @@ class User {
     $username = mysqli_real_escape_string($this->connection, $username);
     $password = mysqli_real_escape_string($this->connection, $password);
     // * GET USER BY username
-    $sql = "SELECT id, username, name, surname, type, password FROM users WHERE username='$username' WHERE is_deleted='0'";
+    $sql = "SELECT id, username, name, surname, type, password FROM users WHERE username='$username' AND is_deleted='0'";
     $query = mysqli_query($this->connection, $sql);
     $res = mysqli_fetch_assoc($query);
     if(!isset($res["id"])) {

@@ -1,6 +1,5 @@
 <?php
-
-require("./controllers/user.php");
+require_once("./controllers/user.php");
 
 ?>
 <div id="app">
@@ -15,11 +14,13 @@ require("./controllers/user.php");
             <div class="card-body">
               <form method="POST" action="#" class="needs-validation" novalidate="">
                 <div class="form-group">
-                  <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
-                  <div class="invalid-feedback">
-                    Please fill in your email
-                  </div>
+                  <label for="email">Username</label>
+                  <input id="username" class="form-control" name="username" tabindex="1" required autofocus>
+                  <?php if (isset($error["username"]) && $error["username"] === "no user with that username") { ?>
+                    <div class="text-danger text-small">
+                      Incorrect username
+                    </div>
+                  <?php } ?>
                 </div>
                 <div class="form-group">
                   <div class="d-block">
@@ -31,9 +32,11 @@ require("./controllers/user.php");
                     </div>
                   </div>
                   <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                  <div class="invalid-feedback">
-                    please fill in your password
+                  <?php if(isset($error["password"]) && $error["password"] === "incorrect Password") { ?>
+                  <div class="text-danger text-small">
+                    Incorrect Password
                   </div>
+                  <?php } ?>
                 </div>
                 <div class="form-group">
                   <div class="custom-control custom-checkbox">
@@ -42,30 +45,16 @@ require("./controllers/user.php");
                   </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                  <button name="login" type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                     Login
                   </button>
                 </div>
               </form>
-              <div class="text-center mt-4 mb-3">
-                <div class="text-job text-muted">Login With Social</div>
-              </div>
-              <div class="row sm-gutters">
-                <div class="col-6">
-                  <a class="btn btn-block btn-social btn-facebook">
-                    <span class="fab fa-facebook"></span> Facebook
-                  </a>
-                </div>
-                <div class="col-6">
-                  <a class="btn btn-block btn-social btn-twitter">
-                    <span class="fab fa-twitter"></span> Twitter
-                  </a>
-                </div>
-              </div>
+
             </div>
           </div>
           <div class="mt-5 text-muted text-center">
-            Don't have an account? <a href="auth-register.html">Create One</a>
+            Don't have an account? <a href="signup.php">Create One</a>
           </div>
         </div>
       </div>

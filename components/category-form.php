@@ -1,55 +1,31 @@
-<?php ?>
+<?php
+require_once("./controllers/category.php");
+?>
 <div class="row">
-  <div class="col-12 col-md-6 col-lg-6">
-    <div class="card">
+  <div class="col-12 col-md-10 col-lg-8">
+    <form class="card" method="POST">
       <div class="card-header">
-        <h4>Horizontal Form</h4>
+        <h4>Create A categorey</h4>
       </div>
       <div class="card-body">
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+          <label for="title" class="col-sm-3 col-form-label">Title</label>
           <div class="col-sm-9">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
-          <div class="col-sm-9">
-            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-          </div>
-        </div>
-        <fieldset class="form-group">
-          <div class="row">
-            <div class="col-form-label col-sm-3 pt-0">Radios</div>
-            <div class="col-sm-9">
-              <div class="form-check">
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio3">First Radio</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio2">Second Radio</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <div class="form-group row">
-          <div class="col-sm-3">Checkbox</div>
-          <div class="col-sm-9">
-            <div class="form-check">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                <label class="custom-control-label" for="customCheck2">Example Checkbox</label>
-              </div>
-            </div>
+            <?php if (isset($_GET["category"])) { ?>
+              <input name="title" value="<?php echo $_GET["title"]; ?>" class="form-control" id="title" required placeholder="Title">
+            <?php } else { ?>
+              <input name="title" value="" class="form-control" id="title" required placeholder="Title">
+            <?php } ?>
           </div>
         </div>
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <?php if (isset($_GET["category"])) { ?>
+          <button name="update-category" type="submit" class="btn btn-warning">Update Category <span class="fas fa-exclamation"></span></button>
+        <?php } else { ?>
+          <button name="create-category" type="submit" class="btn btn-primary">Create Category</button>
+        <?php } ?>
       </div>
-    </div>
+    </form>
   </div>
 </div>

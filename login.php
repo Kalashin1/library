@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <div class="loader"></div>
+  <!-- <div class="loader"></div> -->
   <?php require_once("./components/login-form.php"); ?>
  <!-- General JS Scripts -->
   <script src="assets/js/app.min.js"></script>

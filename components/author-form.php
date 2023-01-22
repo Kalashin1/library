@@ -1,55 +1,54 @@
-<?php ?>
+<?php
+require("./controllers/author.php");
+?>
 <div class="row">
-  <div class="col-12 col-md-6 col-lg-6">
-    <div class="card">
+  <div class="col-12 col-md-10 col-lg-8">
+    <form class="card" method="POST">
       <div class="card-header">
-        <h4>Horizontal Form</h4>
+        <h4>Create Author Form</h4>
       </div>
       <div class="card-body">
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+          <label for="Name" class="col-sm-3 col-form-label">Name</label>
           <div class="col-sm-9">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+            <?php if (isset($_GET["author"])) { ?>
+              <input name="name" value="<?php echo $_GET["name"] ?>" required class="form-control" id="Name" placeholder="Name">
+            <?php } else { ?>
+              <input name="name" value="" required class="form-control" id="Name" placeholder="Name">
+            <?php } ?>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+          <label for="Surname" class="col-sm-3 col-form-label">Surname</label>
           <div class="col-sm-9">
-            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+            <?php if (isset($_GET["author"])) { ?>
+              <input name="surname" required value="<?php echo $_GET["surname"] ?>" class="form-control" id="Surname" placeholder="Surname">
+            <?php } else { ?>
+              <input name="surname" required class="form-control" id="Surname" placeholder="Surname">
+            <?php } ?>
+
           </div>
         </div>
-        <fieldset class="form-group">
-          <div class="row">
-            <div class="col-form-label col-sm-3 pt-0">Radios</div>
-            <div class="col-sm-9">
-              <div class="form-check">
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio3">First Radio</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio2">Second Radio</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
         <div class="form-group row">
-          <div class="col-sm-3">Checkbox</div>
+          <label for="Bio" class="col-sm-3 col-form-label">Bio</label>
           <div class="col-sm-9">
-            <div class="form-check">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                <label class="custom-control-label" for="customCheck2">Example Checkbox</label>
-              </div>
-            </div>
+            <?php if (isset($_GET["author"])) { ?>
+              <textarea name="bio" required class="form-control" id="Bio" placeholder="Bio">
+                <?php echo $_GET["bio"] ?>
+              </textarea>
+            <?php } else { ?>
+              <textarea name="bio" required class="form-control" id="Bio" placeholder="Bio"></textarea>
+            <?php } ?>
           </div>
         </div>
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <?php if (isset($_GET["author"])) { ?>
+          <button type="submit" name="update-author" class="btn btn-warning">Update Author <span class="fas fa-exclamation"></span></button>
+        <?php } else { ?>
+          <button type="submit" name="create-author" class="btn btn-success">Create Author</button>
+        <?php } ?>
       </div>
-    </div>
+    </form>
   </div>
 </div>

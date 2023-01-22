@@ -9,19 +9,24 @@ if (isset($_POST["create-author"])) {
   $surname = htmlspecialchars($_POST["surname"]);
   $bio = htmlspecialchars($_POST["bio"]);
   $author = $Author->create_author($name, $surname, $bio);
-  print_r($author);
+  echo '<script>(() => {window.location.assign("author.php")})()</script>';
 }
 
 if (isset($_POST["update-author"])) {
   $name = htmlspecialchars($_POST["name"]);
   $surname = htmlspecialchars($_POST["surname"]);
   $bio = htmlspecialchars($_POST["bio"]);
-  $author = $Author->update_author($name, $surname, $bio, "192389517663c8315390a8c7.71245432");
-  print_r($author);
+  $id = htmlspecialchars($_GET["author"]);
+  $author = $Author->update_author($name, $surname, $bio, $id);
+  echo '<script>(() => {window.location.assign("author.php")})()</script>';
 }
 
-// print_r($Author->get_author("192389517663c8315390a8c7.71245432"));
-// print_r(count($Author->get_authors()));
-// print_r(count($Author->undo_delete("192389517663c8315390a8c7.71245432")));
+if (isset($_GET["delete_author"])) {
+  $id = htmlspecialchars($_GET["delete_author"]);
+  $Author->delete_author($id);
+  echo '<script>(() => {window.location.assign("author.php")})()</script>';
+}
+
+
 
 ?>

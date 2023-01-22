@@ -5,20 +5,27 @@ require_once("./utils/category.php");
 $conn = connect();
 $Category = new Category($conn);
 
-$id = htmlspecialchars("64455433763c81f6950e381.58362358");
-
 if (isset($_POST["create-category"])){
   $title = $_POST["title"];
   $title = htmlspecialchars($title);
   $category = $Category->create_category($title);
-  $_SESSION["catgeory"] = $category["id"];
-  print_r($category);
+  echo '<script>(() => {window.location.assign("category.php")})()</script>';
 }
 
 
-// print_r(count($Category->get_categories()));
-// print_r($Category->undo_delete($id));
-// echo date("Y-m-d h:i:s");
+if(isset($_POST["update-category"])){
+  $id = $_GET["category"];
+  $title = $_POST["title"];
+  $id = htmlspecialchars($id);
+  $title = htmlspecialchars($title);
+  $Category->update_category($title, $id);
+  echo '<script>(() => {window.location.assign("category.php")})()</script>';
+}
 
+if (isset($_GET["delete_category"])){
+  $id = htmlspecialchars($_GET["delete_category"]);
+  $Category->delete_category($id);
+  echo '<script>(() => {window.location.assign("category.php")})()</script>';
+}
 
 ?>

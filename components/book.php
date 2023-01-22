@@ -1,19 +1,32 @@
-<?php ?>
-<div class="card">
-  <div class="card-header">
-    <h4>My Picture</h4>
-    <div class="card-header-action">
-      <a href="#" class="btn btn-primary">View All</a>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="mb-2 text-muted">Click the picture below to see the magic!</div>
-    <div class="chocolat-parent">
-      <a href="assets/img/image-gallery/3.png" class="chocolat-image" title="Just an example">
-        <div data-crop-image="285">
-          <img alt="image" src="assets/img/image-gallery/3.png" class="img-fluid">
+<?php
+require("./controllers/book.php");
+foreach ($Book->get_books() as $book) { ?>
+  <div class="col-12 col-sm-6 col-lg-6">
+    <div class="card">
+      <div class="chocolate-parent">
+        <a href="<?php echo "book-view.php?book=$book[id]" ?>" class="chocolate-image overflow-hidden" title="Just an example">
+          <div data-crop-image="285">
+            <img alt="image" src="<?php echo $book["image"]; ?>" class="img-fluid">
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="row d-flex justify-content-between align-items-center">
+          <div class="col-6">
+            <h6><?php echo $book["title"] ?></h6>
+          </div>
+          <div class="col-6">
+            <p><?php echo "By: $book[author_name] $book[author_surname]" ?></p>
+          </div>
+          <div class="col-6">
+            <h6><?php echo "Published: $book[year_of_publication]" ?></h6>
+          </div>
+          <div class="col-6">
+            <p><?php echo "Pages: $book[page]" ?></p>
+          </div>
         </div>
-      </a>
+
+      </div>
     </div>
   </div>
-</div>
+<?php } ?>

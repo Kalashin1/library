@@ -17,5 +17,8 @@
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+  <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="assets/bundles/jquery-selectric/selectric.css">
+  <link rel="stylesheet" href="assets/bundles/bootstrap-daterangepicker/daterangepicker.css">
 </head>
 <body>
