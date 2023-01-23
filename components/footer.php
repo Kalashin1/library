@@ -2,7 +2,6 @@
 
 <footer class="main-footer">
   <div class="footer-left">
-    <a href="templateshub.net">Templateshub</a></a>
   </div>
   <div class="footer-right">
   </div>
@@ -11,20 +10,22 @@
 </div>
 <!-- General JS Scripts -->
 <script src="assets/js/app.min.js"></script>
-<!-- JS Libraies -->
-<script src="assets/bundles/apexcharts/apexcharts.min.js"></script>
 <!-- Page Specific JS File -->
 <script src="assets/js/page/index.js"></script>
 <!-- Template JS File -->
 <script src="assets/js/scripts.js"></script>
-<!-- Custom JS File -->
-<script src="assets/js/custom.js"></script>
+<!-- JS Libraies -->
+<script src="assets/bundles/prism/prism.js"></script>
+<script src="assets/bundles/apexcharts/apexcharts.min.js"></script>
 <script src="assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="assets/bundles/sweetalert/sweetalert.min.js"></script>
 <script src="assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <script src="assets/bundles/select2/dist/js/select2.full.min.js"></script>
 <script src="assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
-<!-- <script src="assets/js/page/sweetalert.js"></script> -->
+
+<!-- Custom JS File -->
+<script src="assets/js/custom.js"></script>
+
 <script>
   $("a.category").click(function(e) {
     const category = e.target.dataset["category"];
@@ -121,6 +122,20 @@
         }
       });
   });
+  setTimeout(() => {
+    $.get("http://api.quotable.io/random", function(data, status) {
+      console.log(data);
+      $(".modal-body").text(data.content);
+      $(".jokes-author").text(data.author);
+      $('[data-toggle=modal]').trigger('click');
+      $("[data-dismiss=modal]").click(() => {
+        console.log('clickeD')
+        // console.log($('.modal'))
+        $(".modal.fade.show").css({display: 'none'})
+        $(".modal-backdrop").css({ display: 'none'})
+      })
+    });
+  }, 3000)
 </script>
 </body>
 

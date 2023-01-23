@@ -38,7 +38,7 @@
     if (!isset($user["error"])){
       session_reset();
       $_SESSION["user"] = $user;
-      echo '<script>(() => {window.location.assign("book.php")})()</script>';
+      echo '<script>(() => {window.location.assign("index.php")})()</script>';
     } else {
       print_r($user["error"]);
       $error["username"] = $user["error"];

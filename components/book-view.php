@@ -63,7 +63,9 @@ if (isset($_SESSION["user"])  && ($_SESSION["user"]["type"] == "ADMIN")) {
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <h4>Comments</h4>
-                <a href="book-view.php?book=<?php echo "$book[id]&approve_all=true" ?>" class="btn btn-success text-white">Approve All Pending Comment</a>
+                <?php if (isset($_SESSION["user"])  && ($_SESSION["user"]["type"] == "ADMIN")) { ?>
+                  <a href="book-view.php?book=<?php echo "$book[id]&approve_all=true" ?>" class="btn btn-success text-white">Approve All Pending Comment</a>
+                <?php } ?>
               </div>
               <div class="card-body">
                 <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
