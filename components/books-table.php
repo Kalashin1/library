@@ -1,6 +1,7 @@
 <?php
 require("./controllers/book.php");
 require("./controllers/category.php");
+require("./controllers/author.php");
 $books = $Book->get_books();
 if (isset($_GET["filter_book_by"])) {
   $category = $_GET["filter_book_by"];
@@ -8,21 +9,46 @@ if (isset($_GET["filter_book_by"])) {
 } else if (isset($_GET["filter_by_author"])) {
   $author = htmlspecialchars($_GET["filter_by_author"]);
   $books = $Book->get_book_by_author($author);
-} else if (isset($_GET["filter_by_year"])){
+} else if (isset($_GET["filter_by_year"])) {
   $year = htmlspecialchars($_GET["filter_by_year"]);
   $books = $Book->get_book_by_year($year);
 }
 ?>
 
 <div class="row">
-  <div class="dropdown m-4">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-      Filter By category
-    </button>
-    <div class="dropdown-menu">
-      <?php foreach ($Category->get_categories() as $category) { ?>
-        <a class="dropdown-item" href="book.php?filter_book_by=<?php echo $category["id"] ?>"><?php echo $category["title"] ?></a>
-      <?php } ?>
+  <div class="d-flex align-items-center">
+    <!-- // * FILER BY CATEGORY-->
+    <div class="dropdown m-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+        Filter By category
+      </button>
+      <div class="dropdown-menu">
+        <?php foreach ($Category->get_categories() as $category) { ?>
+          <a class="dropdown-item" href="?filter_book_by=<?php echo $category["id"] ?>"><?php echo "$category[title] (". count($Book->get_book_by_category($category["id"])).")" ?></a>
+        <?php } ?>
+      </div>
+    </div>
+    <!-- //* FILTER BY AUTHOR -->
+    <div class="dropdown m-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+        Filter By Author
+      </button>
+      <div class="dropdown-menu">
+        <?php foreach ($Author->get_authors() as $author) { ?>
+          <a class="dropdown-item" href="?filter_by_author=<?php echo $author["id"] ?>"><?php echo "$author[name] $author[surname]" ?></a>
+        <?php } ?>
+      </div>
+    </div>
+    <!-- //* FILTER BY YEAR -->
+    <div class="dropdown m-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+        Filter By Year
+      </button>
+      <div class="dropdown-menu">
+        <?php foreach ($Book->get_books() as $book) { ?>
+          <a class="dropdown-item" href="?filter_by_year=<?php echo $book["year_of_publication"] ?>"><?php echo "$book[year_of_publication]" ?></a>
+        <?php } ?>
+      </div>
     </div>
   </div>
   <div class="col-12 col-md-10 col-lg-10">
@@ -51,7 +77,7 @@ if (isset($_GET["filter_book_by"])) {
                 <td><?php echo $book["page"] ?></td>
                 <td><?php echo $book["category_title"] ?></td>
                 <td>
-                  <a href="<?php echo "create-book.php?book=$book[id]&category=$book[category_id]&category_title=$book[category_title]&author=$book[author_id]&author_name=$book[author_name]&author_surname=$book[author_surname]&year_of_publication=$book[year_of_publication]&title=$book[title]&page=$book[page]&image=$book[image]" ?>" >
+                  <a href="<?php echo "create-book.php?book=$book[id]&category=$book[category_id]&category_title=$book[category_title]&author=$book[author_id]&author_name=$book[author_name]&author_surname=$book[author_surname]&year_of_publication=$book[year_of_publication]&title=$book[title]&page=$book[page]&image=$book[image]" ?>">
                     <span class="fas fa-edit text-warning"></span>
                   </a>
                   <a class="text-danger book">

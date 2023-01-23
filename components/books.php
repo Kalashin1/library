@@ -10,9 +10,9 @@ require("./controllers/book.php");
       <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
         Filter By category
       </button>
-      <div class="dropdown-menu">
+      <div class="dropdown-menu overflow-scroll">
         <?php foreach ($Category->get_categories() as $category) { ?>
-          <a class="dropdown-item" href="?filter_book_by=<?php echo $category["id"] ?>"><?php echo $category["title"] ?></a>
+          <a class="dropdown-item" href="?filter_book_by=<?php echo $category["id"] ?>"><?php echo "$category[title] (" . count($Book->get_book_by_category($category["id"])) . ")" ?></a>
         <?php } ?>
       </div>
     </div>
