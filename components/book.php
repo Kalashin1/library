@@ -1,13 +1,19 @@
 <?php
 require("./controllers/book.php");
 $books = $Book->get_books();
-if (isset($_GET["filter_book_by"])){
+if (isset($_GET["filter_book_by"])) {
   $category = $_GET["filter_book_by"];
   $books = $Book->get_book_by_category($category);
+} else if (isset($_GET["filter_by_author"])) {
+  $author = htmlspecialchars($_GET["filter_by_author"]);
+  $books = $Book->get_book_by_author($author);
+} else if (isset($_GET["filter_by_year"])){
+  $year = htmlspecialchars($_GET["filter_by_year"]);
+  $books = $Book->get_book_by_year($year);
 }
 foreach ($books as $book) { ?>
   <div class="col-12 col-sm-6 col-lg-6">
-    <div class="card">
+    <div class="card overflow-hidden">
       <div class="chocolate-parent">
         <a href="<?php echo "book-view.php?book=$book[id]" ?>" class="chocolate-image overflow-hidden" title="Just an example">
           <div data-crop-image="285">

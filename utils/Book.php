@@ -66,7 +66,7 @@ class Book {
 
   function get_book_by_year($year){
     $year = mysqli_real_escape_string($this->connection, $year);
-    $sql = "SELECT books.title, books.id, books.page, books.image,  books.year_of_publication, books_author.id AS author_id, authors.name AS author_name, authors.surname AS author_surname, book_category.id AS category_id, categories.title AS category_title FROM books INNER JOIN books_author ON books.id=books_author.book INNER JOIN authors ON authors.id=books_author.author INNER JOIN book_category ON book_category.book=books.id INNER JOIN categories ON book_category.category=categories.id WHERE books.is_deleted='0'; AND books.year_of_publication='$year'";
+    $sql = "SELECT books.title, books.id, books.page, books.image, books.year_of_publication, books_author.id AS author_id, authors.name AS author_name, authors.surname AS author_surname, book_category.id AS category_id, categories.title AS category_title FROM books INNER JOIN books_author ON books.id=books_author.book INNER JOIN authors ON authors.id=books_author.author INNER JOIN book_category ON book_category.book=books.id INNER JOIN categories ON book_category.category=categories.id WHERE books.year_of_publication='$year' AND books.year_of_publication='$year' AND categories.is_deleted='0' AND authors.is_deleted='0'";
     $query = mysqli_query($this->connection, $sql);
     if (mysqli_error($this->connection)) {
       echo "error something happened ".mysqli_error($this->connection);
@@ -77,7 +77,7 @@ class Book {
 
   function get_book_by_author($author){
     $author = mysqli_real_escape_string($this->connection, $author);
-    $sql = "SELECT books_author.id, books_author.book, books.title FROM books_author INNER JOIN books ON books_author.book=books.id WHERE author='$author' AND books.is_deleted='0'";
+    $sql = "SELECT books.title, books.id, books.page, books.image, books.year_of_publication, books_author.id AS author_id, authors.name AS author_name, authors.surname AS author_surname, book_category.id AS category_id, categories.title AS category_title FROM books INNER JOIN books_author ON books.id=books_author.book INNER JOIN authors ON authors.id=books_author.author INNER JOIN book_category ON book_category.book=books.id INNER JOIN categories ON book_category.category=categories.id WHERE author='$author' AND books.is_deleted='0' AND authors.is_deleted='0' AND categories.is_deleted='0'";
     $query = mysqli_query($this->connection, $sql);
     if (mysqli_error($this->connection)) {
       echo "error something happened ".mysqli_error($this->connection);
@@ -88,7 +88,7 @@ class Book {
 
   function update_book($id, $title, $page, $pub_year, $image) {
     $var = ["id" => "", "title" => "", "page" => "", "year_of_publication" => "", "image" => "", "category" => "", "author" => ""];
-    $var["id"] = mysqli_real_escape_string($this->connection, $this->id);
+    $var["id"] = mysqli_real_escape_string($this->connection, $id);
     $var["title"] = mysqli_real_escape_string($this->connection, $title);
     $var["page"] = mysqli_real_escape_string($this->connection, $page);
     $var["year_of_publication"] = mysqli_real_escape_string($this->connection, $pub_year);

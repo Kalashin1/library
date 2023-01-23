@@ -133,6 +133,7 @@
         // console.log($('.modal'))
         $(".modal.fade.show").css({display: 'none'})
         $(".modal-backdrop").css({ display: 'none'})
+        $("body").css({ "overflow-y": 'scroll'})
       })
     });
   }, 3000)

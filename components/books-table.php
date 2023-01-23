@@ -5,6 +5,12 @@ $books = $Book->get_books();
 if (isset($_GET["filter_book_by"])) {
   $category = $_GET["filter_book_by"];
   $books = $Book->get_book_by_category(htmlspecialchars($category));
+} else if (isset($_GET["filter_by_author"])) {
+  $author = htmlspecialchars($_GET["filter_by_author"]);
+  $books = $Book->get_book_by_author($author);
+} else if (isset($_GET["filter_by_year"])){
+  $year = htmlspecialchars($_GET["filter_by_year"]);
+  $books = $Book->get_book_by_year($year);
 }
 ?>
 
