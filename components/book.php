@@ -1,6 +1,11 @@
 <?php
 require("./controllers/book.php");
-foreach ($Book->get_books() as $book) { ?>
+$books = $Book->get_books();
+if (isset($_GET["filter_book_by"])){
+  $category = $_GET["filter_book_by"];
+  $books = $Book->get_book_by_category($category);
+}
+foreach ($books as $book) { ?>
   <div class="col-12 col-sm-6 col-lg-6">
     <div class="card">
       <div class="chocolate-parent">
