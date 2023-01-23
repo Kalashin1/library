@@ -10,6 +10,9 @@ if (isset($_GET["filter_book_by"])) {
 } else if (isset($_GET["filter_by_year"])){
   $year = htmlspecialchars($_GET["filter_by_year"]);
   $books = $Book->get_book_by_year($year);
+} else if (isset($_GET["search_book"])){
+  $term = htmlspecialchars($_GET["search_book"]);
+  $books = $Book->search_book($term);
 }
 foreach ($books as $book) { ?>
   <div class="col-12 col-sm-6 col-lg-6">

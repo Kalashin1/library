@@ -12,6 +12,9 @@ if (isset($_GET["filter_book_by"])) {
 } else if (isset($_GET["filter_by_year"])) {
   $year = htmlspecialchars($_GET["filter_by_year"]);
   $books = $Book->get_book_by_year($year);
+} else if (isset($_GET["search_book"])) {
+  $term = htmlspecialchars($_GET["search_book"]);
+  $books = $Book->search_book($term);
 }
 ?>
 
@@ -24,7 +27,7 @@ if (isset($_GET["filter_book_by"])) {
       </button>
       <div class="dropdown-menu">
         <?php foreach ($Category->get_categories() as $category) { ?>
-          <a class="dropdown-item" href="?filter_book_by=<?php echo $category["id"] ?>"><?php echo "$category[title] (". count($Book->get_book_by_category($category["id"])).")" ?></a>
+          <a class="dropdown-item" href="?filter_book_by=<?php echo $category["id"] ?>"><?php echo "$category[title] (" . count($Book->get_book_by_category($category["id"])) . ")" ?></a>
         <?php } ?>
       </div>
     </div>
